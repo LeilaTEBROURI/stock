@@ -1,8 +1,19 @@
 import { Database } from "bun:sqlite";
+import { existsSync } from "node:fs";
 
-const db = new Database(process.env.BDD_SQLITE_PATH, {
-  create: true
-});
+const databasePath = import.meta.env.DEV
+  ? import.meta.env.BDD_SQLITE_PATH
+  : process.env.BDD_SQLITE_PATH;
+
+if (!databasePath) {
+  throw new Error("BDD_SQLITE_PATH doit être défini dans le fichier .env.");
+}
+
+if (!existsSync(databasePath)) {
+  throw new Error(`Base SQLite introuvable : ${databasePath}`);
+}
+
+const db = new Database(databasePath);
 db.run("PRAGMA journal_mode = WAL");
 
 export function getProducts() {

@@ -1,0 +1,19 @@
+{
+  "name": "astro-stock-ssr",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bunx --bun astro dev",
+    "build": "bunx --bun astro build",
+    "preview": "bunx --bun astro preview",
+    "start": "bun ./dist/server/entry.mjs",
+    "db:init": "bun scripts/init-db.mjs",
+    "db:seed": "bun scripts/seed-db.mjs",
+    "db:setup": "bun run db:init && bun run db:seed"
+  },
+  "dependencies": {
+    "astro": "^7.3.1",
+    "@astrojs/node": "^11.1.5"
+  }
+}
